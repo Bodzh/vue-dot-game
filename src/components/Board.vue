@@ -1,6 +1,10 @@
 <template>
     <div class="board">
-        <cell></cell>
+        <div class="cells-row d-flex flex-row" v-for="i of iterable">
+            <div v-for="item of iterable">
+                <cell></cell>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -15,8 +19,14 @@ import Cell from './Cell'
             'cell': Cell
         },
         computed: {
-            boardLength: function () {
-                return this.settings.field*this.settings.field;
+            iterable: function () {
+                let iterable = [];
+
+                for (let i = 0; i < this.settings.field; i++) {
+                    iterable.push(i)
+                }
+
+                return iterable
             }
         }
     }
