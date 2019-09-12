@@ -9,7 +9,7 @@
             </div>
         </div>
         <input class="form-control name-input" type="text" placeholder="Enter Name">
-        <button type="button" class="btn btn-secondary">Start Game</button>
+        <button @click="onStarted" type="button" class="btn btn-secondary">Start Game</button>
     </div>
 </template>
 
@@ -38,10 +38,13 @@
                     return 'Hard Mode';
                 }
             },
-            setMode(setting, value) {
+            setMode (setting, value) {
                 this.currentMode = this.getSettingName(setting);
 
                 this.$emit('onSettingChanged', value)
+            },
+            onStarted () {
+                this.$emit('onStarted');
             }
         }
     }
