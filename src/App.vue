@@ -13,6 +13,10 @@ import Board from './components/Board';
 import Settings from './components/Settings';
 import Dasboard from './components/Dashboard';
 import {GameStatus} from '@/constants';
+import StarNaviApiProviderClass from './api/starNaviApiProvider'
+import {store} from './store/store'
+
+const StarNaviApiProvider = new StarNaviApiProviderClass();
 
 export default {
   name: 'app',
@@ -37,7 +41,17 @@ export default {
     onStarted () {
       this.gameStatus = GameStatus.started;
     }
-  }
+  },
+  async beforeCreate () {
+    let winners = await StarNaviApiProvider.getGameWinners();
+
+    if (Array.isArray(winners) && winners.length > 0) {
+        for (let winner of winners) {
+            await this.$store.dispatch('addWinner', winner);
+        }
+    }
+  },
+  store
 }
 </script>
 

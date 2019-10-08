@@ -27,4 +27,8 @@ export default class StarNaviApiProvider {
 
         return response.data;
     }
+
+    async postWinner (winner) {
+        await StarNaviApi.postWinner(winner);
+    }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard d-flex flex-column justify-content-start">
-        <div class="winner d-flex flex-row justify-content-between mt-1" v-for="winner of winners">
+        <div class="winner d-flex flex-row justify-content-between mt-1" v-for="winner of getWinners">
             <span> {{ winner.winner }}</span>
             <span> {{ winner.date }}</span>
         </div>
@@ -8,9 +8,6 @@
 </template>
 
 <script>
-    import StarNaviApiProviderClass from '../api/starNaviApiProvider';
-    const StarNaviApiProvider = new StarNaviApiProviderClass();
-
     export default {
         name: 'dashboard',
         data: function () {
@@ -18,15 +15,19 @@
                 winners: [],
             }
         },
-        async beforeCreate () {
-            this.winners = await StarNaviApiProvider.getGameWinners();
+        computed: {
+            getWinners: function () {
+                return this.$store.state.winners
+            }
         }
     }
 </script>
 
 <style>
     .dashboard {
-
+        max-height: 600px;
+        overflow: scroll;
+        overflow-x: auto;
     }
     .winner {
         max-width: 330px;
