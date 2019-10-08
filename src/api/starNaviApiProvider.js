@@ -5,22 +5,26 @@ const StarNaviApi = new StarNaviApiClass(StarNaviApiConfig.url);
 
 export default class StarNaviApiProvider {
     async getGameSettings () {
-        let response = await StarNaviApi.getSettings();
+        let response;
 
-        if (response.ok) {
-            return response.json();
+        try {
+           response = await StarNaviApi.getSettings();
+        } catch (error) {
+            console.error(error);
         }
 
-        return null;
+        return response.data;
     }
 
     async getGameWinners () {
-        let response = await StarNaviApi.getWinners();
+        let response;
 
-        if (response.ok) {
-           return response.json();
+        try {
+            response = await StarNaviApi.getWinners();
+        } catch (error) {
+            console.error(error);
         }
 
-        return null;
+        return response.data;
     }
 }

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default class StarNaviApi {
     constructor(url) {
         this.url = url;
@@ -9,20 +11,18 @@ export default class StarNaviApi {
     }
 
     async getSettings () {
-        return fetch(this.getUrl(this.actions.getSettings, this.getSettingsForGET()));
+        return axios.get(this.getUrl(this.actions.getSettings));
     }
 
     async getWinners () {
-        return fetch(this.getUrl(this.actions.winners, this.getSettingsForGET()));
+        return axios.get(this.getUrl(this.actions.winners));
+    }
+
+    async postWinner (data) {
+        return axios.post(this.getUrl(this.actions.winners), data)
     }
 
     getUrl (action) {
         return this.url + action;
-    }
-
-    getSettingsForGET () {
-        return {
-            method: 'GET'
-        }
     }
 }
